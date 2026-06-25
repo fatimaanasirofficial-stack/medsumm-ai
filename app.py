@@ -153,14 +153,18 @@ mark {{ background-color: {t['primary']}55; color: white;
 # ─────────────────────────────────────────────
 # HEADER
 # ─────────────────────────────────────────────
-logo_path = pathlib.Path("logo.svg")
-if logo_path.exists():
-    logo_svg = logo_path.read_text(encoding="utf-8")
-    st.markdown(
-        f'<div style="max-width:640px; margin-bottom:4px;">{logo_svg}</div>',
-        unsafe_allow_html=True
-    )
-else:
+st.markdown(
+    f'<h1 style="font-size:2.4rem;font-weight:800;'
+    f'background:linear-gradient(90deg,{t["primary"]},#ffffff);'
+    f'-webkit-background-clip:text;-webkit-text-fill-color:transparent;'
+    f'margin-bottom:0;">🏥 MedSumm AI</h1>',
+    unsafe_allow_html=True
+)
+st.markdown(
+    '<p style="color:#9ca3af;margin-top:0;font-size:1rem;">'
+    'AI-powered medical report analysis — structured, fast, transparent.</p>',
+    unsafe_allow_html=True
+)
     st.markdown(
         f'<h1 style="font-size:2.4rem;font-weight:800;'
         f'background:linear-gradient(90deg,{t["primary"]},#ffffff);'
