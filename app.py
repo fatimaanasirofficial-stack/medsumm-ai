@@ -16,9 +16,6 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 st.set_page_config(page_title="MedSumm AI", page_icon="🏥", layout="wide")
 
-# ─────────────────────────────────────────────
-# THEMES
-# ─────────────────────────────────────────────
 THEMES = {
     "Ocean":   {"primary": "#00d4ff", "high": "#ff4d6d", "mid": "#ffb84d", "ok": "#2ee6a8", "bg": "#0f1c2e", "bg2": "#1a2a3a"},
     "Emerald": {"primary": "#2ee6a8", "high": "#ff5c5c", "mid": "#ffd166", "ok": "#2ee6a8", "bg": "#0f1f1a", "bg2": "#1a2e25"},
@@ -37,9 +34,6 @@ NORMAL_RANGES = {
 if "theme"   not in st.session_state: st.session_state.theme   = "Ocean"
 if "history" not in st.session_state: st.session_state.history = []
 
-# ─────────────────────────────────────────────
-# SIDEBAR
-# ─────────────────────────────────────────────
 with st.sidebar:
     st.markdown("### 🎨 Appearance")
     chosen = st.selectbox(
@@ -70,18 +64,13 @@ with st.sidebar:
     )
     st.caption("Powered by Streamlit + Groq (Llama 3.3)")
 
-# Pull theme AFTER sidebar so it reflects the user's current choice
 t = THEMES[st.session_state.theme]
 
-# ─────────────────────────────────────────────
-# CSS
-# ─────────────────────────────────────────────
 st.markdown(f"""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 html, body, [class*="css"] {{ font-family: 'Inter', sans-serif; }}
 
-/* ── metric cards ── */
 .metric-card {{
     background: linear-gradient(135deg, {t['bg']}, {t['bg2']});
     padding: 18px; border-radius: 12px; text-align: center;
@@ -91,7 +80,6 @@ html, body, [class*="css"] {{ font-family: 'Inter', sans-serif; }}
 .metric-card span {{ font-size: 0.75rem; color: #9ca3af;
                      text-transform: uppercase; letter-spacing: 0.05em; }}
 
-/* ── flag rows ── */
 .flag-high {{
     background: #3a1a1a; padding: 10px 14px; border-radius: 8px;
     border-left: 4px solid {t['high']}; margin-bottom: 6px;
@@ -108,25 +96,21 @@ html, body, [class*="css"] {{ font-family: 'Inter', sans-serif; }}
     font-size: 0.9rem; color: #a7f3d0;
 }}
 
-/* ── keyword highlight ── */
 mark {{ background-color: {t['primary']}55; color: white;
         padding: 1px 4px; border-radius: 3px; }}
 
-/* ── confidence box ── */
 .confidence-box {{
     background: {t['bg2']}; border-radius: 8px; padding: 12px 16px;
     border-left: 4px solid {t['primary']}; font-size: 0.82rem;
     color: #9ca3af; margin-top: 16px;
 }}
 
-/* ── trim warning ── */
 .trim-warning {{
     background: #3a2e1a; border-radius: 8px; padding: 10px 14px;
     border-left: 4px solid {t['mid']}; font-size: 0.85rem;
     color: #ffd166; margin-bottom: 12px;
 }}
 
-/* ── footer ── */
 .footer-box {{
     text-align: center; color: #6b7280; font-size: 0.82rem;
     padding: 24px 0 8px; border-top: 1px solid #1f2937; margin-top: 40px;
@@ -139,7 +123,6 @@ mark {{ background-color: {t['primary']}55; color: white;
     font-size: 1rem; font-weight: 700; color: white; margin-bottom: 4px;
 }}
 
-/* ── primary button ── */
 .stButton > button {{
     background: linear-gradient(90deg, {t['primary']}, {t['primary']}99) !important;
     border: none !important; font-weight: 600 !important;
@@ -150,9 +133,7 @@ mark {{ background-color: {t['primary']}55; color: white;
 </style>
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
-# HEADER
-# ─────────────────────────────────────────────
+# ── HEADER ──
 st.markdown(
     f'<h1 style="font-size:2.4rem;font-weight:800;'
     f'background:linear-gradient(90deg,{t["primary"]},#ffffff);'
@@ -165,24 +146,10 @@ st.markdown(
     'AI-powered medical report analysis — structured, fast, transparent.</p>',
     unsafe_allow_html=True
 )
-    st.markdown(
-        f'<h1 style="font-size:2.4rem;font-weight:800;'
-        f'background:linear-gradient(90deg,{t["primary"]},#ffffff);'
-        f'-webkit-background-clip:text;-webkit-text-fill-color:transparent;'
-        f'margin-bottom:0;">🏥 MedSumm AI</h1>',
-        unsafe_allow_html=True
-    )
-    st.markdown(
-        '<p style="color:#9ca3af;margin-top:0;font-size:1rem;">'
-        'AI-powered medical report analysis — structured, fast, transparent.</p>',
-        unsafe_allow_html=True
-    )
 
 st.warning("⚠️ AI-generated content. Not a substitute for professional medical advice. Always consult a licensed provider.")
 
-# ─────────────────────────────────────────────
-# HELPERS
-# ─────────────────────────────────────────────
+# ── HELPERS ──
 def extract_text(uploaded_file):
     name = uploaded_file.name
     if name.endswith(".pdf"):
@@ -363,9 +330,7 @@ def vitals_chart(vitals):
     return fig
 
 
-# ─────────────────────────────────────────────
-# MAIN
-# ─────────────────────────────────────────────
+# ── MAIN ──
 uploaded_files = st.file_uploader(
     "Upload Medical Report(s)",
     type=["pdf", "docx", "txt"],
@@ -390,7 +355,6 @@ if uploaded_files:
             word_count = len(raw_text.split())
             vitals     = extract_vitals(raw_text)
 
-            # ── metric row ──
             c1, c2, c3, c4 = st.columns(4)
             c1.markdown(f"<div class='metric-card'><b>{word_count:,}</b><span>Words</span></div>", unsafe_allow_html=True)
             c2.markdown(f"<div class='metric-card'><b>{page_count or '—'}</b><span>Pages</span></div>", unsafe_allow_html=True)
@@ -399,11 +363,9 @@ if uploaded_files:
 
             st.markdown("")
 
-            # ── vitals chart ──
             if vitals:
                 st.plotly_chart(vitals_chart(vitals), use_container_width=True)
 
-            # ── raw text expander ──
             with st.expander("📄 View Extracted Text (with search)"):
                 keyword = st.text_input("🔎 Highlight keyword", key=f"kw_{uploaded_file.name}")
                 if keyword:
@@ -411,7 +373,6 @@ if uploaded_files:
                 else:
                     st.text_area("Raw Report Text", raw_text, height=200, key=f"raw_{uploaded_file.name}")
 
-            # ── analyze button ──
             if st.button("🔍 Analyze Report", type="primary", key=f"btn_{uploaded_file.name}"):
                 with st.spinner("Llama 3.3 is reading your report..."):
                     start = time.time()
@@ -446,7 +407,6 @@ if uploaded_files:
                             unsafe_allow_html=True
                         )
 
-                        # ── downloads ──
                         st.markdown("")
                         dl1, dl2, dl3 = st.columns(3)
                         with dl1:
@@ -484,9 +444,7 @@ if uploaded_files:
 else:
     st.info("👆 Upload one or more medical reports to get started.")
 
-# ─────────────────────────────────────────────
-# FOOTER
-# ─────────────────────────────────────────────
+# ── FOOTER ──
 st.markdown(f"""
 <div class='footer-box'>
     <div class='footer-name'>Fatima Nasir</div>
@@ -494,7 +452,7 @@ st.markdown(f"""
     <br><br>
     <a href='https://www.linkedin.com/in/fatima-nasir-bme' target='_blank'>🔗 LinkedIn</a>
     &nbsp;·&nbsp;
-    <a href='https://github.com/fatima-nasir' target='_blank'>💻 GitHub</a>
+    <a href='https://github.com/fatimaanasirofficial-stack/medsumm-ai' target='_blank'>💻 GitHub</a>
     <br><br>
     <span style='color:#374151;'>
         MedSumm AI &nbsp;·&nbsp; Powered by Groq (Llama 3.3 70B) &nbsp;·&nbsp; Not for clinical use
