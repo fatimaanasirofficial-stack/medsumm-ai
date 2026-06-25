@@ -135,10 +135,12 @@ mark {{ background-color: {t['primary']}55; color: white;
 
 # ── HEADER ──
 st.markdown(
-    f'<h1 style="font-size:2.4rem;font-weight:800;'
+    f'<div style="display:flex;align-items:center;gap:12px;margin-bottom:0;">'
+    f'<span style="font-size:2.8rem;">🏥</span>'
+    f'<span style="font-size:2.4rem;font-weight:800;'
     f'background:linear-gradient(90deg,{t["primary"]},#ffffff);'
-    f'-webkit-background-clip:text;-webkit-text-fill-color:transparent;'
-    f'margin-bottom:0;">🏥 MedSumm AI</h1>',
+    f'-webkit-background-clip:text;-webkit-text-fill-color:transparent;">'
+    f'MedSumm AI</span></div>',
     unsafe_allow_html=True
 )
 st.markdown(
