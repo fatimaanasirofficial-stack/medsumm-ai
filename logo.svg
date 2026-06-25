@@ -1,42 +1,31 @@
 <svg width="100%" viewBox="0 0 680 300" role="img" xmlns="http://www.w3.org/2000/svg">
   <title>MedSumm AI logo</title>
 
-  <defs>
-    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#00d4ff"/>
-      <stop offset="100%" style="stop-color:#2ee6a8"/>
-    </linearGradient>
-    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#00d4ff"/>
-      <stop offset="100%" style="stop-color:#2ee6a8"/>
-    </linearGradient>
-  </defs>
+  <!-- Circle with dark fill -->
+  <circle cx="120" cy="150" r="70" fill="#0d1b2a" stroke="#00d4ff" stroke-width="3"/>
 
-  <!-- Circle background with dark fill so it always looks good -->
-  <circle cx="120" cy="150" r="70" fill="#0d1b2a" stroke="url(#tealGrad)" stroke-width="3"/>
-
-  <!-- Heart outline - thicker and more visible -->
+  <!-- Heart outline - solid color -->
   <path d="M120 175 C100 162, 82 148, 82 132 C82 120, 91 110, 101 110 C109 110, 116 115, 120 121 C124 115, 131 110, 139 110 C149 110, 158 120, 158 132 C158 148, 140 162, 120 175 Z"
-        fill="none" stroke="url(#iconGrad)" stroke-width="3" opacity="0.7"/>
+        fill="none" stroke="#2ee6a8" stroke-width="3"/>
 
-  <!-- ECG line - thicker -->
+  <!-- ECG line - solid color -->
   <polyline points="82,138 96,138 101,122 107,154 113,128 118,148 123,138 158,138"
-            fill="none" stroke="url(#tealGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            fill="none" stroke="#00d4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
 
   <!-- Pulse dot -->
   <circle cx="158" cy="138" r="4" fill="#2ee6a8"/>
 
-  <!-- App name -->
-  <text x="210" y="135" font-family="Inter, sans-serif" font-size="52" font-weight="800" fill="url(#tealGrad)" letter-spacing="-1">MedSumm</text>
-  <text x="210" y="185" font-family="Inter, sans-serif" font-size="52" font-weight="800" fill="white" letter-spacing="-1">AI</text>
+  <!-- MedSumm text -->
+  <text x="210" y="135" font-family="Arial, sans-serif" font-size="52" font-weight="800" fill="#00d4ff" letter-spacing="-1">MedSumm</text>
+  <text x="210" y="185" font-family="Arial, sans-serif" font-size="52" font-weight="800" fill="#ffffff" letter-spacing="-1">AI</text>
 
   <!-- Tagline -->
-  <text x="212" y="220" font-family="Inter, sans-serif" font-size="15" font-weight="400" fill="#9ca3af" letter-spacing="0.5">AI-powered medical report analysis</text>
+  <text x="212" y="220" font-family="Arial, sans-serif" font-size="15" fill="#9ca3af" letter-spacing="0.5">AI-powered medical report analysis</text>
 
   <!-- Divider -->
-  <line x1="212" y1="232" x2="600" y2="232" stroke="url(#tealGrad)" stroke-width="1" opacity="0.4"/>
+  <line x1="212" y1="232" x2="600" y2="232" stroke="#00d4ff" stroke-width="1" opacity="0.4"/>
 
   <!-- Credit -->
-  <text x="212" y="255" font-family="Inter, sans-serif" font-size="13" font-weight="400" fill="#6b7280" letter-spacing="0.3">Built by Fatima Nasir · Biomedical Engineer</text>
+  <text x="212" y="255" font-family="Arial, sans-serif" font-size="13" fill="#6b7280" letter-spacing="0.3">Built by Fatima Nasir · Biomedical Engineer</text>
 
-</svg>
+</svg> 
