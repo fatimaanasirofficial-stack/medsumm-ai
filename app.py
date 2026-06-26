@@ -1,3 +1,12 @@
+# ─────────────────────────────────────────────
+# MedSumm AI - Created by Fatima Nasir
+# Copyright 2026. All rights reserved.
+# Unauthorized use or distribution is prohibited.
+# LinkedIn: linkedin.com/in/fatima-nasir-bme
+# ─────────────────────────────────────────────
+from database import init_db, save_report, get_all_reports, delete_report
+
+init_db()  # creates the table if it doesn't exist yet — run once on startup 
 import streamlit as st
 from groq import Groq
 import fitz
@@ -56,6 +65,19 @@ with st.sidebar:
             st.caption(f"📄 {h['name']} — {h['time']}")
     else:
         st.caption("No reports analyzed yet.")
+
+    st.markdown("---")
+    st.markdown("### 🗄️ Saved Reports (Database)")
+    db_reports = get_all_reports()
+    if db_reports:
+        for report_id, filename, upload_date, summary in db_reports:
+            with st.expander(f"📄 {filename} — {upload_date}"):
+                st.write(summary)
+                if st.button("🗑️ Delete", key=f"del_{report_id}"):
+                    delete_report(report_id)
+                    st.rerun()
+    else:
+        st.caption("No reports saved in database yet.") 
 
     st.markdown("---")
     st.markdown(
@@ -240,6 +262,7 @@ Medical Report:
     return response.choices[0].message.content, trimmed
 
 
+
 def generate_pdf(summary_text, filename):
     pdf = FPDF()
     pdf.add_page()
@@ -381,6 +404,12 @@ if uploaded_files:
                     try:
                         summary, was_trimmed = summarize_report(raw_text, detail_level)
                         elapsed = round(time.time() - start, 2)
+                        save_report(
+                            filename=uploaded_file.name,
+                            raw_text=raw_text,
+                            summary=summary,
+                            model_used="llama-3.3-70b-versatile"
+                        ) 
 
                         st.session_state.history.append({
                             "name": uploaded_file.name,
