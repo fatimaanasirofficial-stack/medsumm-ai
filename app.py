@@ -454,8 +454,6 @@ st.markdown(f"""
     <br><br>
     <a href='https://www.linkedin.com/in/fatima-nasir-bme' target='_blank'>🔗 LinkedIn</a>
     &nbsp;·&nbsp;
-    <a href='https://github.com/fatimaanasirofficial-stack/medsumm-ai' target='_blank'>💻 GitHub</a>
-    <br><br>
     <span style='color:#374151;'>
         MedSumm AI &nbsp;·&nbsp; Powered by Groq (Llama 3.3 70B) &nbsp;·&nbsp; Not for clinical use
     </span>
